@@ -43,18 +43,11 @@ runs:
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install -y wget graphviz doxygen
       shell: bash
-
-    - name: Change directory to running folder
-      run: cd ${{ inputs.running_folder }}
-      shell: bash
-
+      
     - name: Generate Doxygen Documentation
       run: doxygen ${{ inputs.config_file }}
       shell: bash
-
-    - name: Change directory back to previous state
-      run: cd -
-      shell: bash
+      working-directory: ${{ inputs.running_folder }}
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
